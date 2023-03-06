@@ -13,7 +13,7 @@ fi
 # I. Global vars #
 ##################
 
-myBACKTITLE="T-Pot-Installer"
+myBACKTITLE="Honeypot-Installer"
 myCONF_FILE="/root/installer/iso.conf"
 myPROGRESSBOXCONF=" --backtitle "$myBACKTITLE" --progressbox 24 80"
 mySITES="https://ghcr.io https://github.com https://pypi.python.org https://debian.org"
@@ -30,7 +30,7 @@ fi
 myINSTALLPACKAGES=$(cat $myINSTALLPACKAGESFILE)
 myINFO="\
 ###########################################
-### T-Pot Installer for Debian (Stable) ###
+### Honeypot Installer for Debian (Stable) ###
 ###########################################
 
 Disclaimer:
@@ -304,7 +304,7 @@ function fuGET_DEPS {
   echo "debconf debconf/frontend select noninteractive" | debconf-set-selections -v
   apt-fast -y dist-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes
   echo
-  echo "### Installing T-Pot dependencies."
+  echo "### Installing Honeypot dependencies."
   echo
   apt-fast -y install $myINSTALLPACKAGES
   # Remove exim4
@@ -325,7 +325,7 @@ if [ "$myTPOT_DEPLOYMENT_TYPE" == "user" ];
     echo
     echo "### Please review your running services."
     echo "### We will take care of SSH (22), but other services i.e. FTP (21), TELNET (23), SMTP (25), HTTP (80), HTTPS (443), etc."
-    echo "### might collide with T-Pot's honeypots and prevent T-Pot from starting successfully."
+    echo "### might collide with honeypots and prevent it from starting successfully."
     echo
     while [ 1 != 2 ]
       do
@@ -702,7 +702,7 @@ hash -r
 # Cloning T-Pot from GitHub
 if ! [ "$myTPOT_DEPLOYMENT_TYPE" == "iso" ];
   then
-    fuBANNER "Cloning T-Pot"
+    fuBANNER "Cloning Honeypot"
     ### DEV
     git clone https://github.com/telekom-security/tpotce /opt/tpot
 fi
