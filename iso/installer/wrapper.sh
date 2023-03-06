@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /root/installer
-./install.sh --type=iso
+./install.sh --type=auto --conf=tpot.conf
