@@ -43,4 +43,3 @@ const printSecondList = () => {
 };
 
 printFirstList();
-printSecondList();
