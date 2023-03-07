@@ -13,6 +13,8 @@ RUN apt-get update -y && \
              bash \
              bzip2 \
 	     curl \
+	     wget \
+	     vim \
 #             openjdk-11-jre \
              openssh-client && \
 #
