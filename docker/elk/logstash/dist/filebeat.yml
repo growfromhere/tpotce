@@ -1,0 +1,34 @@
+filebeat.inputs:
+  - type: log
+    paths: "/etc/logstash/fbeatip.json"
+    json.keys_under_root: true
+      #- type: udp
+      #host: "0.0.0.0:6050"
+    tags: ["honeypot"]
+      #json.keys_under_root: true
+      #tags: ["honeypot"]
+
+output.logstash:
+  hosts: ["hydra-us-logger.managesoc.com:5044"]
+  ssl.enabled: true
+  ssl.certificate_authorities: "/etc/filebeat/rootCA.pem"
+  ssl.certificate: "/etc/filebeat/hydra_collector_agent.crt"
+  ssl.key: "/etc/filebeat/hydra_collector_agent.key"
+  ssl.supported_protocols: [TLSv1.2]
+  ssl.cipher_suites: ["ECDHE-RSA-AES-256-GCM-SHA384"]
+
+      #output.console:
+      #pretty: true
+
+
+
+
+
+processors:
+  - add_fields:
+      target: organization
+      fields:
+        id: "10001"
+
+queue.disk:
+  max_size: 10GB
