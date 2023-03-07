@@ -28,7 +28,10 @@ RUN apt-get update -y && \
     bunzip2 *.bz2 && \
     cd /root/dist/ && \
     aria2c -s 16 -x 16 https://artifacts.elastic.co/downloads/logstash/logstash-$LS_VER-$LS_ARCH.deb && \
+    aria2c -s 16 -x 16 https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$LS_VER-$LS_ARCH.deb && \
     dpkg -i logstash-$LS_VER-$LS_ARCH.deb && \
+    dpkg -i filebeat-$LS_VER-$LS_ARCH.deb && \
+
 #    /usr/share/logstash/bin/logstash-plugin install logstash-output-gelf logstash-output-syslog && \
 #
 # Add and move files
@@ -45,6 +48,14 @@ RUN apt-get update -y && \
     rm /etc/logstash/pipelines.yml && \
     rm /etc/logstash/logstash.yml && \
 #
+
+# Copy filebeat files
+
+    cp filebeat.yml /etc/filebeat/ && \
+    cp rootCA.pem /etc/filebeat/ && \
+    cp hydra_collector_agent.crt /etc/filebeat/ && \
+    cp hydra_collector_agent.key /etc/filebeat/ && \
+
 # Setup user, groups and configs
     groupmod -g 2000 logstash && \
     usermod -u 2000 logstash && \
@@ -64,4 +75,4 @@ HEALTHCHECK --retries=10 CMD curl -s -XGET 'http://127.0.0.1:9600'
 #
 # Start logstash
 USER logstash:logstash
-CMD entrypoint.sh && exec /usr/share/logstash/bin/logstash --config.reload.automatic
+CMD entrypoint.sh && exec /usr/share/logstash/bin/logstash --config.reload.automatic && exec service filebeat start
