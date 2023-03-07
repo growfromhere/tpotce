@@ -32,26 +32,11 @@ const CONFIG = {
   // Links
   lists: {
     firstList: [
-      {
-        name: 'Cockpit',
-        link: '/cockpit.html',
-      },
-      {
-        name: 'Cyberchef',
-        link: '/cyberchef/',
-      },
-      {
-        name: 'Elasticvue',
-        link: '/elasticvue/',
-      },
+      
       {
         name: 'Kibana',
         link: '/kibana/',
-      },
-      {
-        name: 'Spiderfoot',
-        link: '/spiderfoot/',
-      },
+      }
     ],
     secondList: [
       {
