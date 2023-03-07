@@ -68,7 +68,7 @@ const CONFIG = {
       },
       {
         name: 'T-Pot ReadMe',
-        link: 'https://github.com/thecloud24x7/tpotce/blob/master/README.md',
+        link: 'https://github.com/growfromhere/tpotce/blob/master/README.md',
       },      
     ],
   },
