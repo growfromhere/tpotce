@@ -51,6 +51,10 @@ RUN apt-get update -y && \
     rm /etc/logstash/logstash.yml && \
 #
 
+# Copy splunk files
+
+cp splunk.conf /etc/logstash/ && \
+
 # Copy filebeat files
 
     cp filebeat.yml /etc/filebeat/ && \
