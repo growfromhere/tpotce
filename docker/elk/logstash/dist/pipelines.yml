@@ -4,3 +4,6 @@
 - pipeline.id: http_input
   path.config: "/etc/logstash/http_input.conf"
   pipeline.ecs_compatibility: disabled
+- pipeline.id: splunk
+  path.config: "/etc/logstash/splunk.conf"
+  pipeline.ecs_compatibility: disabled
