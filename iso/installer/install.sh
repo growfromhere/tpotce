@@ -34,7 +34,7 @@ myINFO="\
 ###########################################
 
 Disclaimer:
-This script will install T-Pot on this system.
+This script will install Honeypot on this system.
 By running the script you know what you are doing:
 1. SSH will be reconfigured to tcp/64295.
 2. Please ensure other means of access to this system in case something goes wrong.
@@ -397,7 +397,7 @@ for i in "$@"
         echo "Usage: $0 <options>"
         echo
         echo "--conf=<Path to \"tpot.conf\">"
-	echo "  Use this if you want to automatically deploy a T-Pot instance (--type=auto implied)."
+	echo "  Use this if you want to automatically deploy a Honeypot instance (--type=auto implied)."
         echo "  A configuration example is available in \"tpotce/iso/installer/tpot.conf.dist\"."
         echo
         echo "--type=<[user, auto, iso]>"
@@ -441,8 +441,8 @@ fi
 myUSERCHECK=$(grep "tpot" /etc/passwd | wc -l)
 if [ "$myUSERCHECK" -gt "0" ];
   then
-    echo "### The user name \"tpot\" already exists. The tpot username and group may not previously exist or T-Pot will not work."
-    echo "### We recommend a fresh install according to the T-Pot Readme Post-Install method."
+    echo "### The user name \"tpot\" already exists. The tpot username and group may not previously exist or Honeypot will not work."
+    echo "### We recommend a fresh install according to the Honeypot Readme Post-Install method."
     echo
     echo "Aborting."
     echo
@@ -699,7 +699,7 @@ npm install elasticdump -g
 pip3 install glances[docker] yq
 hash -r
 
-# Cloning T-Pot from GitHub
+# Cloning Honeypot from GitHub
 if ! [ "$myTPOT_DEPLOYMENT_TYPE" == "iso" ];
   then
     fuBANNER "Cloning Honeypot"
