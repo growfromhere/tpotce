@@ -172,7 +172,7 @@ services:
 ## Logstash service
   logstash:
     build: elk/logstash/.
-    image: "dtagdevsec/logstash:2204"
+    image: "sharkstriker/logstash:latest"
 
 # Ewsposter service
   ewsposter:
@@ -182,7 +182,7 @@ services:
 # Nginx service
   nginx:
     build: nginx/.
-    image: "dtagdevsec/nginx:2204"
+    image: "sharkstriker/nginx:latest"
 
 # Spiderfoot service
   spiderfoot:
