@@ -773,6 +773,11 @@ case $myCONF_TPOT_FLAVOR in
   ;;
 esac
 
+# create local docker images - sharkstriker
+
+docker build -t sharkstriker/nginx:latest /opt/tpot/docker/nginx
+docker build -t sharkstriker/logstash:latest /opt/tpot/docker/elk/logstash
+
 # Let's load docker images
 function fuPULLIMAGES {
 for name in $(cat $myTPOTCOMPOSE | grep -v '#' | grep image | cut -d'"' -f2 | uniq)
