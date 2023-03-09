@@ -1,0 +1,39 @@
+## service
+  logstash:
+    container_name: logstash
+    restart: always
+    environment:
+     - LS_JAVA_OPTS=-Xms1024m -Xmx1024m
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    env_file:
+     - /opt/tpot/etc/compose/elk_environment
+    mem_limit: 2g
+    image: "dtagdevsec/logstash:2204"
+    volumes:
+     - /data:/data
+
+
+# Nginx service
+  nginx:
+    container_name: nginx
+    restart: always
+    tmpfs:
+     - /var/tmp/nginx/client_body
+     - /var/tmp/nginx/proxy
+     - /var/tmp/nginx/fastcgi
+     - /var/tmp/nginx/uwsgi
+     - /var/tmp/nginx/scgi
+     - /run
+     - /var/lib/nginx/tmp:uid=100,gid=82
+    network_mode: "host"
+    ports:
+     - "64297:64297"
+     - "127.0.0.1:64304:64304"
+    image: "dtagdevsec/nginx:2204"
+    read_only: true
+    volumes:
+     - /data/nginx/cert/:/etc/nginx/cert/:ro
+     - /data/nginx/conf/nginxpasswd:/etc/nginx/nginxpasswd:ro
+     - /data/nginx/log/:/var/log/nginx/
