@@ -840,13 +840,20 @@ mkdir -vp /data/adbhoney/{downloads,log} \
           /data/spiderfoot \
           /data/suricata/log \
           /data/tanner/{log,files} \
-          /home/tsec/.ssh/
+	  /data/SiteReliability \
+          /home/tsec/.ssh/ 
 touch /data/nginx/log/error.log
 
 # Let's copy some files
 fuBANNER "Copy configs"
 tar xvfz /opt/tpot/etc/objects/elkbase.tgz -C /
 cp /opt/tpot/host/etc/systemd/* /etc/systemd/system/
+cp /opt/tpot/etc/DeleteLastRead.py /data/SiteReliability/DeleteLastRead.py
+cp /opt/tpot/etc/DockerLogstashLogMonitor.py /data/SiteReliability/DockerLogstashLogMonitor.py
+cp /opt/tpot/etc/diskmon.bash /data/SiteReliability/diskmon.bash
+cp /opt/tpot/etc/slack-honeypot.bash /data/SiteReliability/slack-honeypot.bash
+chmod +x -R /data/SiteReliability
+slack "This is test message from $HOSTNAME"
 systemctl enable tpot
 
 # Let's take care of some files and permissions
