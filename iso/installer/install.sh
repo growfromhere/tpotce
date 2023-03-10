@@ -840,6 +840,7 @@ mkdir -vp /data/adbhoney/{downloads,log} \
           /data/spiderfoot \
           /data/suricata/log \
           /data/tanner/{log,files} \
+	  /data/splunk \
 	  /data/SiteReliability \
           /home/tsec/.ssh/ 
 touch /data/nginx/log/error.log
