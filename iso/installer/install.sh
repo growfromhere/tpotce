@@ -193,6 +193,14 @@ $myRANDOM_MINUTE $myRANDOM_HOUR * * 1-6      root    systemctl stop tpot && dock
 
 # Check for updated packages every sunday, upgrade and reboot
 $myRANDOM_MINUTE $myRANDOM_HOUR * * 0     root    apt-fast autoclean -y && apt-fast autoremove -y && apt-fast update -y && apt-fast upgrade -y && sleep 10 && reboot
+
+# SiteReliability Scripts
+* * * * * root /data/diskmon
+* * * * * root /data/monitor "filebeat" "Filbeat"
+0 0 * * *     root /usr/bin/python3 /data/SiteReliability/DeleteLastRead.py
+*/2 * * * *   root /usr/bin/python3 /data/SiteReliability/DockerLogstashLogMonitor.py
+*/2 * * * *   root /usr/bin/python3 /data/SiteReliability/DeleteFbeat.py
+
 "
 mySHELLCHECK='[[ $- == *i* ]] || return'
 myROOTPROMPT='PS1="\[\033[38;5;8m\][\[$(tput sgr0)\]\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;6m\]@\[$(tput sgr0)\]\[\033[38;5;4m\]\h\[$(tput sgr0)\]\[\033[38;5;6m\]:\[$(tput sgr0)\]\[\033[38;5;5m\]\w\[$(tput sgr0)\]\[\033[38;5;8m\]]\[$(tput sgr0)\]\[\033[38;5;1m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"'
@@ -862,7 +870,9 @@ tar xvfz /opt/tpot/etc/objects/elkbase.tgz -C /
 cp /opt/tpot/host/etc/systemd/* /etc/systemd/system/
 cp /opt/tpot/etc/sitereliability/DeleteLastRead.py /data/SiteReliability/DeleteLastRead.py
 cp /opt/tpot/etc/sitereliability/DockerLogstashLogMonitor.py /data/SiteReliability/DockerLogstashLogMonitor.py
+cp /opt/tpot/etc/sitereliability/DeleteFbeat.py /data/SiteReliability/DeleteFbeat.py
 cp /opt/tpot/etc/sitereliability/diskmon.bash /data/SiteReliability/diskmon.bash
+cp /opt/tpot/etc/sitereliability/monitor.bash /data/SiteReliability/monitor.bash
 cp /opt/tpot/etc/sitereliability/slack-honeypot.bash /data/SiteReliability/slack-honeypot.bash
 chmod +x -R /data/SiteReliability
 slack "This is test message from $HOSTNAME"
