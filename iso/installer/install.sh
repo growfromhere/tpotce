@@ -868,13 +868,10 @@ touch /data/nginx/log/error.log
 fuBANNER "Copy configs"
 tar xvfz /opt/tpot/etc/objects/elkbase.tgz -C /
 cp /opt/tpot/host/etc/systemd/* /etc/systemd/system/
-cp /opt/tpot/etc/sitereliability/DeleteLastRead.py /data/SiteReliability/DeleteLastRead.py
-cp /opt/tpot/etc/sitereliability/DockerLogstashLogMonitor.py /data/SiteReliability/DockerLogstashLogMonitor.py
-cp /opt/tpot/etc/sitereliability/DeleteFbeat.py /data/SiteReliability/DeleteFbeat.py
-cp /opt/tpot/etc/sitereliability/diskmon.bash /data/SiteReliability/diskmon.bash
-cp /opt/tpot/etc/sitereliability/monitor.bash /data/SiteReliability/monitor.bash
-cp /opt/tpot/etc/sitereliability/slack-honeypot.bash /data/SiteReliability/slack-honeypot.bash
+cp /opt/tpot/etc/sitereliability/* /data/SiteReliability/
+cp /opt/tpot/etc/filebeat-conf/* /etc/filebeat
 chmod +x -R /data/SiteReliability
+touch /data/splunk/fbeatip.json
 slack "This is test message from $HOSTNAME"
 systemctl enable tpot
 
