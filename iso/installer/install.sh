@@ -196,7 +196,7 @@ $myRANDOM_MINUTE $myRANDOM_HOUR * * 0     root    apt-fast autoclean -y && apt-f
 
 # SiteReliability Scripts
 * * * * * root /data/diskmon
-* * * * * root /data/monitor "filebeat" "Filbeat"
+* * * * * root /data/monitor "filebeat" "Filebeat"
 0 0 * * *     root /usr/bin/python3 /data/SiteReliability/DeleteLastRead.py
 */2 * * * *   root /usr/bin/python3 /data/SiteReliability/DockerLogstashLogMonitor.py
 */2 * * * *   root /usr/bin/python3 /data/SiteReliability/DeleteFbeat.py
