@@ -49,12 +49,6 @@ RUN apt-get update -y && \
     rm /etc/logstash/logstash.yml && \
 #
 
-# Copy splunk files
-
-cp splunk.conf /data/splunk/splunk.conf && \
-
-
-
 # Setup user, groups and configs
     groupmod -g 2000 logstash && \
     usermod -u 2000 logstash && \
