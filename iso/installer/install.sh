@@ -29,6 +29,17 @@ elif [ -f "/opt/tpot/packages.txt" ];
 fi
 myINSTALLPACKAGES=$(cat $myINSTALLPACKAGESFILE)
 myINFO="\
+
+# Determine arch, get and install filebeat
+    ARCH=$(arch) && \
+      if [ "$ARCH" = "x86_64" ]; then LS_ARCH="amd64"; fi && \
+      if [ "$ARCH" = "aarch64" ]; then LS_ARCH="arm64"; fi && \
+    echo "$ARCH" && \
+    bunzip2 *.bz2 && \
+    cd /root/dist/ && \
+    aria2c -s 16 -x 16 https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$LS_VER-$LS_ARCH.deb && \
+    dpkg -i filebeat-$LS_VER-$LS_ARCH.deb && \
+    
 ###########################################
 ### Honeypot Installer for Debian (Stable) ###
 ###########################################
