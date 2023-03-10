@@ -93,8 +93,8 @@ myNETWORK_WLANEXAMPLE="
 ### Example static ip config
 ### Replace <eth0> with the name of your physical interface name
 #
-#auto eth0
-#iface eth0 inet static
+auto eth0
+iface eth0 inet dhcp
 # address 192.168.1.1
 # netmask 255.255.255.0
 # network 192.168.1.0
