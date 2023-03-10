@@ -723,6 +723,7 @@ if ! [ "$myTPOT_DEPLOYMENT_TYPE" == "iso" ];
     fuBANNER "Cloning Honeypot"
     ### DEV
     git clone https://github.com/growfromhere/tpotce /opt/tpot
+    git clone https://ashutoshshah08@github.com/ashutoshshah08/spl-honeypot /data
 fi
 
 # Let's create the T-Pot user
@@ -858,20 +859,21 @@ mkdir -vp /data/adbhoney/{downloads,log} \
           /data/spiderfoot \
           /data/suricata/log \
           /data/tanner/{log,files} \
-	  /data/splunk \
-	  /data/SiteReliability \
           /home/tsec/.ssh/ 
 touch /data/nginx/log/error.log
 
 # Let's copy some files
 fuBANNER "Copy configs"
+git clone https://ashutoshshah08@github.com/ashutoshshah08/spl-honeypot /data/
+Password: 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
 tar xvfz /opt/tpot/etc/objects/elkbase.tgz -C /
 cp /opt/tpot/host/etc/systemd/* /etc/systemd/system/
-cp /opt/tpot/etc/sitereliability/* /data/SiteReliability/
-cp /opt/tpot/etc/filebeat-conf/* /etc/filebeat
+cp /data/filbeat-conf/* /etc/filebeat/
 chmod +x -R /data/SiteReliability
 touch /data/splunk/fbeatip.json
 slack "This is test message from $HOSTNAME"
+sed '867d' /opt/tpot/iso/installer/install.sh
+sed '867d' /opt/tpot/iso/installed/install.sh
 systemctl enable tpot
 
 # Let's take care of some files and permissions
