@@ -58,6 +58,19 @@ services:
      - /data:/data
 #     - /root/tpotce/docker/elk/logstash/dist/logstash.conf:/etc/logstash/conf.d/logstash.conf
 
+## Filebeat Service
+filbeat:
+    container_name: logstash
+    restart: always
+#    environment:
+#     - LS_JAVA_OPTS=-Xms2048m -Xmx2048m
+    env_file:
+     - /opt/tpot/etc/compose/elk_environment
+    image: "sharkstriker/logstash:latest"
+    volumes:
+#     - /data:/data
+#     - /root/tpotce/docker/elk/logstash/dist/logstash.conf:/etc/logstash/conf.d/logstash.conf
+
 # Map Redis Service
   map_redis:
     container_name: map_redis
