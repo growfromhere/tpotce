@@ -864,16 +864,12 @@ touch /data/nginx/log/error.log
 
 # Let's copy some files
 fuBANNER "Copy configs"
-git clone https://ashutoshshah08@github.com/ashutoshshah08/spl-honeypot /data/
-Password: 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
 tar xvfz /opt/tpot/etc/objects/elkbase.tgz -C /
 cp /opt/tpot/host/etc/systemd/* /etc/systemd/system/
 cp /data/filbeat-conf/* /etc/filebeat/
 chmod +x -R /data/SiteReliability
 touch /data/splunk/fbeatip.json
 slack "This is test message from $HOSTNAME"
-sed '867d' /opt/tpot/iso/installer/install.sh
-sed '867d' /opt/tpot/iso/installed/install.sh
 systemctl enable tpot
 
 # Let's take care of some files and permissions
