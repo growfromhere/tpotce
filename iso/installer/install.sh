@@ -874,6 +874,7 @@ chmod +x /usr/bin/slack
 chmod +x -R /data/sitereliability
 touch /data/splunk/fbeatip.json
 slack "This is test message from $HOSTNAME"
+sed -i 's/ens192/eth0/g' /etc/network/interfaces
 systemctl start filebeat
 systemctl enable tpot
 
