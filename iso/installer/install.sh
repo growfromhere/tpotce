@@ -192,6 +192,7 @@ $myRANDOM_MINUTE $myRANDOM_HOUR * * 0     root    apt-fast autoclean -y && apt-f
 0 0 * * *     root /usr/bin/python3 /data/sitereliability/DeleteLastRead.py
 */2 * * * *   root /usr/bin/python3 /data/sitereliability/DockerLogstashLogMonitor.py
 */2 * * * *   root /usr/bin/python3 /data/sitereliability/DeleteFbeat.py
+0 0 * * * root /data/sitereliability/dailygitupdate
 
 "
 mySHELLCHECK='[[ $- == *i* ]] || return'
