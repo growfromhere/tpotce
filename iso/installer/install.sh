@@ -862,9 +862,6 @@ mkdir -vp /data/adbhoney/{downloads,log} \
           /home/tsec/.ssh/ 
 touch /data/nginx/log/error.log
 
-# Get SharkStriker Custom Files
-git clone https://ashutoshshah08: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@github.com/ashutoshshah08/spl-honeypot /data
-
 # Let's copy some files
 fuBANNER "Copy configs"
 tar xvfz /opt/tpot/etc/objects/elkbase.tgz -C /
