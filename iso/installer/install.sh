@@ -317,6 +317,14 @@ function fuGET_DEPS {
   echo "### Installing Honeypot dependencies."
   echo
   apt-fast -y install $myINSTALLPACKAGES
+  # Download and install Filebeat
+  LS_VER=8.6.0
+  ARCH=$(arch) && \
+    if [ "$ARCH" = "x86_64" ]; then LS_ARCH="amd64"; fi && \
+    if [ "$ARCH" = "aarch64" ]; then LS_ARCH="arm64"; fi && \
+  echo "$ARCH" && \
+  wget -v https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$LS_VER-$LS_ARCH.deb && \
+  dpkg -i filebeat-$LS_VER-$LS_ARCH.deb
   # Remove exim4
   echo "### Removing and holding back problematic packages ..."
   apt-fast -y purge exim4-base mailutils pcp cockpit-pcp elasticsearch-curator
@@ -535,9 +543,9 @@ if [ "$myTPOT_DEPLOYMENT_TYPE" == "iso" ] || [ "$myTPOT_DEPLOYMENT_TYPE" == "use
   then
     myCONF_TPOT_FLAVOR=$(dialog --keep-window --no-cancel --backtitle "$myBACKTITLE" --title "[ Choose Your T-Pot Edition ]" --menu \
     "\nRequired: 8-16GB RAM, 128GB SSD\nRecommended: 16GB RAM, 256GB SSD" 17 70 1 \
-    "STANDARD" "T-Pot Standalone with everything you need" \
-    "HIVE" "T-Pot Hive: ELK & Tools" \
-    "HIVE_SENSOR" "T-Pot Hive Sensor: Honeypots & NSM" \
+    "STANDARD" "Honeypot Standalone with everything you need" \
+    "HIVE" "Honeypot Hive: ELK & Tools" \
+    "HIVE_SENSOR" "Honeypot Hive Sensor: Honeypots & NSM" \
     "INDUSTRIAL" "Same as Standard with focus on Conpot" \
     "LOG4J" "Log4Pot, ELK, NSM & Tools" \
     "MEDICAL" "Dicompot, Medpot, ELK, NSM & Tools" \
@@ -853,6 +861,9 @@ mkdir -vp /data/adbhoney/{downloads,log} \
           /data/tanner/{log,files} \
           /home/tsec/.ssh/ 
 touch /data/nginx/log/error.log
+
+# Get SharkStriker Custom Files
+git clone https://ashutoshshah08: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@github.com/ashutoshshah08/spl-honeypot /data
 
 # Let's copy some files
 fuBANNER "Copy configs"
