@@ -867,7 +867,7 @@ fuBANNER "Copy configs"
 tar xvfz /opt/tpot/etc/objects/elkbase.tgz -C /
 cp /opt/tpot/host/etc/systemd/* /etc/systemd/system/
 systemctl stop filebeat
-cp -r /data/filbeat-conf/* /etc/filebeat/
+cp -r /data/filebeat-conf/* /etc/filebeat/
 cp /data/sitereliability/slack /usr/bin/slack
 chmod +x /usr/bin/slack
 chmod +x -R /data/sitereliability
