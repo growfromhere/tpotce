@@ -789,6 +789,7 @@ wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add
 echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
 apt-get update && apt-get install filebeat
 systemctl enable filebeat
+systemctl start filebeat
 sudo update-rc.d filebeat defaults 95 10
 
 # create local docker images - sharkstriker
@@ -865,14 +866,14 @@ touch /data/nginx/log/error.log
 fuBANNER "Copy configs"
 tar xvfz /opt/tpot/etc/objects/elkbase.tgz -C /
 cp /opt/tpot/host/etc/systemd/* /etc/systemd/system/
-cp /data/filbeat-conf/* /etc/filebeat/
+systemctl enable filebeat
+cp -r /data/filbeat-conf/* /etc/filebeat/
 cp /data/sitereliability/slack /usr/bin/slack
 chmod +x /usr/bin/slack
 chmod +x -R /data/sitereliability
 touch /data/splunk/fbeatip.json
 slack "This is test message from $HOSTNAME"
 systemctl enable tpot
-systemctl enable filebeat
 
 # Let's take care of some files and permissions
 fuBANNER "Permissions"
