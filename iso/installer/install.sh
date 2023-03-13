@@ -186,8 +186,9 @@ $myRANDOM_MINUTE $myRANDOM_HOUR * * 1-6      root    systemctl stop tpot && dock
 $myRANDOM_MINUTE $myRANDOM_HOUR * * 0     root    apt-fast autoclean -y && apt-fast autoremove -y && apt-fast update -y && apt-fast upgrade -y && sleep 10 && reboot
 
 # SiteReliability Scripts
-* * * * * root /data/diskmon
-* * * * * root /data/monitor "filebeat" "Filebeat"
+* * * * * root /data/sitereliability/diskmon
+* * * * * root /data/sitereliability/monitor "filebeat" "Filebeat"
+* * * * * root /data/sitereliability/monitor "tpot" "Honeypot"
 0 0 * * *     root /usr/bin/python3 /data/sitereliability/DeleteLastRead.py
 */2 * * * *   root /usr/bin/python3 /data/sitereliability/DockerLogstashLogMonitor.py
 */2 * * * *   root /usr/bin/python3 /data/sitereliability/DeleteFbeat.py
