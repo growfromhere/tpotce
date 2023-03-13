@@ -21,7 +21,7 @@ myTPOTCOMPOSE="/opt/tpot/etc/tpot.yml"
 myLSB_STABLE_SUPPORTED="bullseye"
 myLSB_TESTING_SUPPORTED="stable"
 myREMOTESITES="https://hub.docker.com https://github.com https://pypi.python.org https://debian.org https://listbot.sicherheitstacho.eu"
-myPREINSTALLPACKAGES="aria2 apache2-utils cracklib-runtime curl dialog figlet fuse grc libcrack2 libpq-dev lsb-release net-tools software-properties-common toilet vim"
+myPREINSTALLPACKAGES="aria2 apache2-utils cracklib-runtime curl dialog figlet fuse grc libcrack2 libpq-dev lsb-release net-tools software-properties-common toilet vim apt-transport-https"
 if [ -f "../../packages.txt" ];
   then myINSTALLPACKAGESFILE="../../packages.txt"
 elif [ -f "/opt/tpot/packages.txt" ];
@@ -785,14 +785,11 @@ case $myCONF_TPOT_FLAVOR in
 esac
 
 # Download and install Filebeat
-LS_VER=8.6.0
- ARCH=$(arch) && \
-   if [ "$ARCH" = "x86_64" ]; then LS_ARCH="amd64"; fi && \
-   if [ "$ARCH" = "aarch64" ]; then LS_ARCH="arm64"; fi && \
-echo "$ARCH" && \
-cd /data && \
-wget -v /data https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$LS_VER-$LS_ARCH.deb && \
-dpkg -i filebeat-*.deb
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
+apt-get update && apt-get install filebeat
+systemctl enable filebeat
+sudo update-rc.d filebeat defaults 95 10
 
 # create local docker images - sharkstriker
 
@@ -875,6 +872,7 @@ chmod +x -R /data/sitereliability
 touch /data/splunk/fbeatip.json
 slack "This is test message from $HOSTNAME"
 systemctl enable tpot
+systemctl enable filebeat
 
 # Let's take care of some files and permissions
 fuBANNER "Permissions"
