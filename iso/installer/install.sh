@@ -940,6 +940,7 @@ rm -rf /etc/issue.net && \
 rm -rf /etc/motd && \
 rm -rf /opt/tpot/makeiso* && \
 rm -rf /opt/tpot/iso && \
+exec bash
 systemctl restart console-setup.service
 
 if [ "$myTPOT_DEPLOYMENT_TYPE" == "auto" ];
