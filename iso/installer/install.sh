@@ -21,7 +21,7 @@ myTPOTCOMPOSE="/opt/tpot/etc/tpot.yml"
 myLSB_STABLE_SUPPORTED="bullseye"
 myLSB_TESTING_SUPPORTED="stable"
 myREMOTESITES="https://hub.docker.com https://github.com https://pypi.python.org https://debian.org https://listbot.sicherheitstacho.eu"
-myPREINSTALLPACKAGES="aria2 apache2-utils cracklib-runtime curl dialog figlet fuse grc libcrack2 libpq-dev lsb-release net-tools software-properties-common toilet"
+myPREINSTALLPACKAGES="aria2 apache2-utils cracklib-runtime curl dialog figlet fuse grc libcrack2 libpq-dev lsb-release net-tools software-properties-common toilet vim"
 if [ -f "../../packages.txt" ];
   then myINSTALLPACKAGESFILE="../../packages.txt"
 elif [ -f "/opt/tpot/packages.txt" ];
@@ -317,17 +317,7 @@ function fuGET_DEPS {
   echo "### Installing Honeypot dependencies."
   echo
   apt-fast -y install $myINSTALLPACKAGES
-  # Download and install Filebeat
- LS_VER=8.6.0
-  ARCH=$(arch) && \
-    if [ "$ARCH" = "x86_64" ]; then LS_ARCH="amd64"; fi && \
-    if [ "$ARCH" = "aarch64" ]; then LS_ARCH="arm64"; fi && \
-  echo "$ARCH" && \
-  cd /data && \
-  wget -v /data https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$LS_VER-$LS_ARCH.deb && \
-  cd /data && \
-  dpkg -i filebeat-$LS_VER-$LS_ARCH.deb  
-  # Remove exim4
+    # Remove exim4
   echo "### Removing and holding back problematic packages ..."
   apt-fast -y purge exim4-base mailutils pcp cockpit-pcp elasticsearch-curator
   apt-fast -y autoremove
@@ -793,6 +783,16 @@ case $myCONF_TPOT_FLAVOR in
     ln -s /opt/tpot/etc/compose/sensor.yml $myTPOTCOMPOSE
   ;;
 esac
+
+# Download and install Filebeat
+LS_VER=8.6.0
+ ARCH=$(arch) && \
+   if [ "$ARCH" = "x86_64" ]; then LS_ARCH="amd64"; fi && \
+   if [ "$ARCH" = "aarch64" ]; then LS_ARCH="arm64"; fi && \
+echo "$ARCH" && \
+cd /data && \
+wget -v /data https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$LS_VER-$LS_ARCH.deb && \
+dpkg -i filebeat-*.deb
 
 # create local docker images - sharkstriker
 
