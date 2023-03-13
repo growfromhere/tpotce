@@ -95,8 +95,8 @@ myNETWORK_WLANEXAMPLE="
 ### Example static ip config
 ### Replace <eth0> with the name of your physical interface name
 #
-auto eth0
-iface eth0 inet dhcp
+# auto eth0
+# iface eth0 inet dhcp
 # address 192.168.1.1
 # netmask 255.255.255.0
 # network 192.168.1.0
@@ -188,9 +188,9 @@ $myRANDOM_MINUTE $myRANDOM_HOUR * * 0     root    apt-fast autoclean -y && apt-f
 # SiteReliability Scripts
 * * * * * root /data/diskmon
 * * * * * root /data/monitor "filebeat" "Filebeat"
-0 0 * * *     root /usr/bin/python3 /data/SiteReliability/DeleteLastRead.py
-*/2 * * * *   root /usr/bin/python3 /data/SiteReliability/DockerLogstashLogMonitor.py
-*/2 * * * *   root /usr/bin/python3 /data/SiteReliability/DeleteFbeat.py
+0 0 * * *     root /usr/bin/python3 /data/sitereliability/DeleteLastRead.py
+*/2 * * * *   root /usr/bin/python3 /data/sitereliability/DockerLogstashLogMonitor.py
+*/2 * * * *   root /usr/bin/python3 /data/sitereliability/DeleteFbeat.py
 
 "
 mySHELLCHECK='[[ $- == *i* ]] || return'
@@ -318,13 +318,15 @@ function fuGET_DEPS {
   echo
   apt-fast -y install $myINSTALLPACKAGES
   # Download and install Filebeat
-  LS_VER=8.6.0
+ LS_VER=8.6.0
   ARCH=$(arch) && \
     if [ "$ARCH" = "x86_64" ]; then LS_ARCH="amd64"; fi && \
     if [ "$ARCH" = "aarch64" ]; then LS_ARCH="arm64"; fi && \
   echo "$ARCH" && \
-  wget -v https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$LS_VER-$LS_ARCH.deb && \
-  dpkg -i filebeat-$LS_VER-$LS_ARCH.deb
+  cd /data && \
+  wget -v /data https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-$LS_VER-$LS_ARCH.deb && \
+  cd /data && \
+  dpkg -i filebeat-$LS_VER-$LS_ARCH.deb  
   # Remove exim4
   echo "### Removing and holding back problematic packages ..."
   apt-fast -y purge exim4-base mailutils pcp cockpit-pcp elasticsearch-curator
@@ -867,7 +869,9 @@ fuBANNER "Copy configs"
 tar xvfz /opt/tpot/etc/objects/elkbase.tgz -C /
 cp /opt/tpot/host/etc/systemd/* /etc/systemd/system/
 cp /data/filbeat-conf/* /etc/filebeat/
-chmod +x -R /data/SiteReliability
+cp /data/sitereliability/slack /usr/bin/slack
+chmod +x /usr/bin/slack
+chmod +x -R /data/sitereliability
 touch /data/splunk/fbeatip.json
 slack "This is test message from $HOSTNAME"
 systemctl enable tpot
