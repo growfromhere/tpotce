@@ -866,13 +866,14 @@ touch /data/nginx/log/error.log
 fuBANNER "Copy configs"
 tar xvfz /opt/tpot/etc/objects/elkbase.tgz -C /
 cp /opt/tpot/host/etc/systemd/* /etc/systemd/system/
-systemctl enable filebeat
+systemctl stop filebeat
 cp -r /data/filbeat-conf/* /etc/filebeat/
 cp /data/sitereliability/slack /usr/bin/slack
 chmod +x /usr/bin/slack
 chmod +x -R /data/sitereliability
 touch /data/splunk/fbeatip.json
 slack "This is test message from $HOSTNAME"
+systemctl start filebeat
 systemctl enable tpot
 
 # Let's take care of some files and permissions
@@ -936,6 +937,8 @@ rm -rf /etc/issue.d/cockpit.issue && \
 rm -rf /etc/motd.d/cockpit && \
 rm -rf /etc/issue.net && \
 rm -rf /etc/motd && \
+rm -rf /opt/tpot/makeiso* && \
+rm -rf /opt/tpot/iso && \
 systemctl restart console-setup.service
 
 if [ "$myTPOT_DEPLOYMENT_TYPE" == "auto" ];
