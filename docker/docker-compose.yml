@@ -172,7 +172,7 @@ services:
 ## Logstash service
   logstash:
     build: elk/logstash/.
-    image: "dtagdevsec/logstash:2204"
+    image: "sharkstriker/logstash:latest"
 
 # Ewsposter service
   ewsposter:
