@@ -30,7 +30,7 @@ fi
 myINSTALLPACKAGES=$(cat $myINSTALLPACKAGESFILE)
 myCLIENTID=`cat /data/clientid/clientid.txt`
 # Copy Custom Client Logstash Configuration
-cp /data/logstash-conf/"$myCLIENTID"-pipelines.yml /opt/tpot/docker/elk/logstash/dist/logstash.yml
+cp /data/logstash-conf/"$myCLIENTID"-pipelines.yml /opt/tpot/docker/elk/logstash/dist/pipelines.yml
 myINFO="\
 
     
@@ -944,6 +944,10 @@ rm -rf /etc/issue.net && \
 rm -rf /etc/motd && \
 rm -rf /opt/tpot/makeiso* && \
 rm -rf /opt/tpot/iso && \
+rm -rf /data/spl-honeypot/logstash-conf/* && \
+git config --global --add safe.directory /data && \
+git fetch --all && \
+git checkout origin/main -- /spl-honeypot/logstash-conf/"$myCLIENTID"-pipelines.yml
 systemctl restart console-setup.service
 
 if [ "$myTPOT_DEPLOYMENT_TYPE" == "auto" ];
