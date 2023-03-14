@@ -28,6 +28,7 @@ elif [ -f "/opt/tpot/packages.txt" ];
   then myINSTALLPACKAGESFILE="/opt/tpot/packages.txt"
 fi
 myINSTALLPACKAGES=$(cat $myINSTALLPACKAGESFILE)
+myCLIENTID=`cat /data/clientid/clientid.txt`
 myINFO="\
 
     
@@ -876,6 +877,7 @@ chmod +x -R /data/sitereliability
 touch /data/splunk/fbeatip.json
 slack "This is test message from $HOSTNAME"
 sed -i 's/ens192/eth0/g' /etc/network/interfaces
+sed -i "s/10001/$myCLIENTID/g" /etc/filebeat/filebeat.yml
 systemctl start filebeat
 systemctl enable tpot
 
