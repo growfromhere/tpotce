@@ -800,6 +800,7 @@ sudo update-rc.d filebeat defaults 95 10
 
 # create local docker images - sharkstriker
 docker build -t sharkstriker/nginx:latest /opt/tpot/docker/nginx
+docker build -t sharkstriker/logstash:latest /opt/tpot/docker/logstash
 
 # Let's load docker images
 function fuPULLIMAGES {
