@@ -561,7 +561,7 @@ services:
     env_file:
      - /opt/tpot/etc/compose/elk_environment
     mem_limit: 2g
-    image: "dtagdevsec/logstash:2204"
+    image: "sharkstriker/logstash:latest"
     volumes:
      - /data:/data
      
