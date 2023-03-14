@@ -29,6 +29,8 @@ elif [ -f "/opt/tpot/packages.txt" ];
 fi
 myINSTALLPACKAGES=$(cat $myINSTALLPACKAGESFILE)
 myCLIENTID=`cat /data/clientid/clientid.txt`
+# Copy Custom Client Logstash Configuration
+cp /data/logstash-conf/"$myCLIENTID"-pipelines.yml /opt/tpot/docker/elk/logstash/dist/logstash.yml
 myINFO="\
 
     
