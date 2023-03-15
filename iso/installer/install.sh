@@ -946,7 +946,7 @@ rm -rf /etc/issue.net && \
 rm -rf /etc/motd && \
 rm -rf /opt/tpot/makeiso* && \
 rm -rf /opt/tpot/iso && \
-rm -rf /data/spl-honeypot/logstash-conf/* && \
+rm -rf /data/logstash-conf/* && \
 git config --global --add safe.directory /data && \
 git fetch --all && \
 git checkout origin/main -- /spl-honeypot/logstash-conf/"$myCLIENTID"-pipelines.yml
