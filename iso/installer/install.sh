@@ -28,7 +28,7 @@ elif [ -f "/opt/tpot/packages.txt" ];
   then myINSTALLPACKAGESFILE="/opt/tpot/packages.txt"
 fi
 myINSTALLPACKAGES=$(cat $myINSTALLPACKAGESFILE)
-myCLIENTID=`cat /data/clientid/clientid.txt`
+myCLIENTID=`cat /data/clientid.txt`
 # Copy Custom Client Logstash Configuration
 cp /data/logstash-conf/"$myCLIENTID"-pipelines.yml /data/logstash-conf/pipelines.yml
 cp /data/logstash-conf/"$myCLIENTID"-splunk.conf /data/logstash-conf/splunk.conf
